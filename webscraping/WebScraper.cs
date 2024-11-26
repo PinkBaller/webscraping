@@ -171,8 +171,7 @@ namespace webscraping
                     if (postingData.FindElements(By.XPath("//*[contains(text(), 'Pastato energijos suvartojimo klasė:')]/following-sibling::dd")).Count > 0)
                         flatDTO.energyUsageClass = postingData.FindElements(By.XPath("//*[contains(text(), 'Pastato energijos suvartojimo klasė:')]/following-sibling::dd"))[0].Text;
 
-                   
-                    //??TODO await database to finish
+
                     flatDTOList.Add(flatDTO);
                     database.ListingToDatabase(flatDTO);
 

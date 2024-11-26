@@ -13,12 +13,15 @@ class Program
     static void Main(string[] args)
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        WebScraper webscraper = new WebScraper("https://www.aruodas.lt/butai/puslapis/1/?FOrder=Price&detailed_search=1");
+        WebScraper webscraper = new WebScraper("https://www.aruodas.lt/butai/puslapis/323/?FOrder=Price&detailed_search=1");
 
         List<FlatDTO> flatDTOs = webscraper.scrape();
 
         DatabaseManager database = new DatabaseManager("localhost", 5432, "postgres", "1365", "webscraper");
 
-        database.isSold(flatDTOs);
+        RemovedListingScrape listingState = new RemovedListingScrape();
+
+        List<string> removedIDS = listingState.getRemovedListings(flatDTOs);
+        listingState.updatedRemovedListingData(removedIDS);
     }
 }
